@@ -16,5 +16,5 @@ LINE_CHANNEL_MID         - LINE Channel MID
 LINE_SERVER_BIND_ADDRESS - Bind address (default: 0.0.0.0)
 LINE_SERVER_PORT         - Port         (default: 4567)
 LINE_SERVER_ENDPOINT     - Endpoint     (default: /callback)
-RESPOND_TO_ALL           - Pass 1 to force ruboty to respond all message without mention
+RESPOND_TO_ALL           - Pass 1 to force ruboty to respond all messages without mention
 ```
