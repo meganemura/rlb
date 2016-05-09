@@ -5,12 +5,12 @@ require 'line/bot'
 module Ruboty
   module Adapters
     class LineBot < Base
-      env :LINE_CHANNEL_ID,      "LINE Channel ID",                   :optional => true
-      env :LINE_CHANNEL_SECRET,  "LINE Channel Secret",               :optional => true
-      env :LINE_CHANNEL_MID,     "LINE Channel MID",                  :optional => true
-      env :WEBHOOK_BIND_ADDRESS, "Bind address (default: 0.0.0.0)",   :optional => true
-      env :WEBHOOK_PORT,         "Port         (default: 4567)",      :optional => true
-      env :WEBHOOK_ENDPOINT,     "Directory    (default: /callback)", :optional => true
+      env :LINE_CHANNEL_ID,          "LINE Channel ID"
+      env :LINE_CHANNEL_SECRET,      "LINE Channel Secret"
+      env :LINE_CHANNEL_MID,         "LINE Channel MID"
+      env :LINE_SERVER_BIND_ADDRESS, "Bind address (default: 0.0.0.0)",   :optional => true
+      env :LINE_SERVER_PORT,         "Port         (default: 4567)",      :optional => true
+      env :LINE_SERVER_ENDPOINT,     "Endpoint     (default: /callback)", :optional => true
 
       def run
         init
