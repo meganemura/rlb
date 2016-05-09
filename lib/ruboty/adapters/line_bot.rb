@@ -54,14 +54,9 @@ module Ruboty
           Port:        port,
           Logger:      Ruboty.logger,
         })
-        @server.mount('/', Rack::Handler::WEBrick, lambda(&method(:static)))
         @server.mount(endpoint, Rack::Handler::WEBrick, lambda(&method(:callback)))
 
         @server
-      end
-
-      def static(env)
-        return [200, {}, ['Ok']]
       end
 
       def callback(env)
