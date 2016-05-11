@@ -90,19 +90,7 @@ module Ruboty
             keys = [:id, :from_mid, :to_mid, :from_channel_id, :to_channel_id, :event_type, :created_time, :content]
             message = keys.each_with_object({}) {|key, hash| hash[key] = event.send(key) }
 
-            unless contact = @cached_contacts[message[:from_mid]]
-              contact = client.get_user_profile(message[:from_mid]).contacts.first
-              @cached_contacts.update({
-                contact.mid => {
-                  mid:            contact.mid,
-                  display_name:   contact.display_name,
-                  picture_url:    contact.picture_url,
-                  status_message: contact.status_message,
-                }
-              })
-              contact = @cached_contacts[contact.mid]
-            end
-
+            contact = cached_contact(message[:from_mid])
             message.update(
               body:      message[:content].content[:text],
               from:      message[:from_mid],
@@ -114,6 +102,26 @@ module Ruboty
             robot.receive(message)
           end
         end
+      end
+
+      def cached_contact(mid)
+        if contact = @cached_contacts[mid]
+          contact
+        else
+          update_contact_cache(mid)
+          @cached_contacts[mid]
+        end
+      end
+
+      def update_contact_cache(mid)
+        contact = client.get_user_profile(mid).contacts.first
+
+        @cached_contacts[contact.mid] = {
+          mid:            contact.mid,
+          display_name:   contact.display_name,
+          picture_url:    contact.picture_url,
+          status_message: contact.status_message,
+        }
       end
 
       def request_from_queue
