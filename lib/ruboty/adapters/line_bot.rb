@@ -18,11 +18,6 @@ module Ruboty
         main_loop
       end
 
-      def init
-        @queue = Queue.new
-        @cached_contacts = {}
-      end
-
       def say(message)
         client.send_text(
           to_mid: message[:original][:from_mid],
@@ -31,6 +26,11 @@ module Ruboty
       end
 
       private
+
+      def init
+        @queue = Queue.new
+        @cached_contacts = {}
+      end
 
       def client
         @client ||= Line::Bot::Client.new do |config|
