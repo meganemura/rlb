@@ -50,14 +50,18 @@ module Ruboty
       def server
         return @server if @server
 
-        @server = WEBrick::HTTPServer.new({
-          BindAddress: bind_address,
-          Port:        port,
-          Logger:      Ruboty.logger,
-        })
+        @server = WEBrick::HTTPServer.new(server_options)
         @server.mount(endpoint, Rack::Handler::WEBrick, lambda(&method(:callback)))
 
         @server
+      end
+
+      def server_options
+        {
+          BindAddress: bind_address,
+          Port:        port,
+          Logger:      Ruboty.logger,
+        }
       end
 
       def callback(env)
